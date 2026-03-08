@@ -289,7 +289,13 @@ func (vm *vpnManager) Start(tunFD int, config *VPNConfig) error {
 	}
 	if effectiveSNI != "" {
 		switch t := vm.transport.(type) {
-		case interface{ SetSNI(string) }:
+		case *websocket.Transport:
+			t.SetSNI(effectiveSNI)
+		case *grpc.Transport:
+			t.SetSNI(effectiveSNI)
+		case *xhttp.Transport:
+			t.SetSNI(effectiveSNI)
+		case *h3grpc.Transport:
 			t.SetSNI(effectiveSNI)
 		}
 	}
