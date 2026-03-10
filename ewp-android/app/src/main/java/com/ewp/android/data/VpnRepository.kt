@@ -1,15 +1,15 @@
-package com.echworkers.android.data
+package com.ewp.android.data
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.util.Log
-import com.echworkers.android.model.EWPNode
-import com.echworkers.android.model.ProxyConfig
-import com.echworkers.android.model.VpnState
-import com.echworkers.android.model.VpnStats
-import com.echworkers.android.service.*
+import com.ewp.android.model.EWPNode
+import com.ewp.android.model.ProxyConfig
+import com.ewp.android.model.VpnState
+import com.ewp.android.model.VpnStats
+import com.ewp.android.service.*
 import ewpmobile.Ewpmobile
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -1,4 +1,4 @@
-package com.echworkers.android
+package com.ewp.android
 
 import android.app.Activity
 import android.content.Intent
@@ -12,9 +12,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.echworkers.android.ui.navigation.EWPNavHost
-import com.echworkers.android.ui.theme.EWPTheme
-import com.echworkers.android.viewmodel.MainViewModel
+import com.ewp.android.ui.navigation.EWPNavHost
+import com.ewp.android.ui.theme.EWPTheme
+import com.ewp.android.viewmodel.MainViewModel
 
 class MainActivity : ComponentActivity() {
     

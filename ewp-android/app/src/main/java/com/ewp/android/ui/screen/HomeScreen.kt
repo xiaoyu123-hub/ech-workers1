@@ -1,4 +1,4 @@
-package com.echworkers.android.ui.screen
+package com.ewp.android.ui.screen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -12,11 +12,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.echworkers.android.model.EWPNode
-import com.echworkers.android.model.VpnState
-import com.echworkers.android.ui.theme.SuccessColor
-import com.echworkers.android.ui.theme.WarningColor
-import com.echworkers.android.viewmodel.MainViewModel
+import com.ewp.android.model.EWPNode
+import com.ewp.android.model.VpnState
+import com.ewp.android.ui.theme.SuccessColor
+import com.ewp.android.ui.theme.WarningColor
+import com.ewp.android.viewmodel.MainViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -148,7 +148,7 @@ fun HomeScreen(
 private fun ConnectionCard(
     selectedNode: EWPNode?,
     vpnState: VpnState,
-    proxyMode: com.echworkers.android.model.ProxyMode,
+    proxyMode: com.ewp.android.model.ProxyMode,
     onConnect: () -> Unit,
     onDisconnect: () -> Unit,
     onNavigateToAppSelect: () -> Unit,
@@ -299,7 +299,7 @@ private fun StatusIcon(vpnState: VpnState) {
 }
 
 @Composable
-private fun StatsDisplay(stats: com.echworkers.android.model.VpnStats) {
+private fun StatsDisplay(stats: com.ewp.android.model.VpnStats) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Row(
             modifier = Modifier.fillMaxWidth(),

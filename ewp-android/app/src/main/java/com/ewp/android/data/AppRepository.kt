@@ -1,12 +1,12 @@
-package com.echworkers.android.data
+package com.ewp.android.data
 
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.util.Log
-import com.echworkers.android.model.AppInfo
-import com.echworkers.android.model.ProxyConfig
-import com.echworkers.android.model.ProxyMode
+import com.ewp.android.model.AppInfo
+import com.ewp.android.model.ProxyConfig
+import com.ewp.android.model.ProxyMode
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

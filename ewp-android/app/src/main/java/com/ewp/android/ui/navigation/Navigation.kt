@@ -1,4 +1,4 @@
-package com.echworkers.android.ui.navigation
+package com.ewp.android.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
@@ -6,10 +6,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.echworkers.android.ui.screen.AppSelectScreen
-import com.echworkers.android.ui.screen.HomeScreen
-import com.echworkers.android.ui.screen.NodeEditScreen
-import com.echworkers.android.viewmodel.MainViewModel
+import com.ewp.android.ui.screen.AppSelectScreen
+import com.ewp.android.ui.screen.HomeScreen
+import com.ewp.android.ui.screen.NodeEditScreen
+import com.ewp.android.viewmodel.MainViewModel
 
 sealed class Screen(val route: String) {
     object Home : Screen("home")

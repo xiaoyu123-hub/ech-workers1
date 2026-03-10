@@ -1,4 +1,4 @@
-package com.echworkers.android.ui.screen
+package com.ewp.android.ui.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -15,9 +15,9 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.drawable.toBitmap
-import com.echworkers.android.model.AppInfo
-import com.echworkers.android.model.ProxyMode
-import com.echworkers.android.viewmodel.MainViewModel
+import com.ewp.android.model.AppInfo
+import com.ewp.android.model.ProxyMode
+import com.ewp.android.viewmodel.MainViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

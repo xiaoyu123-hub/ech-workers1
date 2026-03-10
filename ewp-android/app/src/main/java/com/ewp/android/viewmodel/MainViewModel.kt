@@ -1,13 +1,13 @@
-package com.echworkers.android.viewmodel
+package com.ewp.android.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.echworkers.android.data.AppRepository
-import com.echworkers.android.data.NodeRepository
-import com.echworkers.android.data.VpnRepository
-import com.echworkers.android.model.EWPNode
-import com.echworkers.android.model.ProxyMode
+import com.ewp.android.data.AppRepository
+import com.ewp.android.data.NodeRepository
+import com.ewp.android.data.VpnRepository
+import com.ewp.android.model.EWPNode
+import com.ewp.android.model.ProxyMode
 import ewpmobile.Ewpmobile
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
@@ -35,13 +35,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val vpnState = vpnRepository.state.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000),
-        com.echworkers.android.model.VpnState.Disconnected
+        com.ewp.android.model.VpnState.Disconnected
     )
     
     val proxyConfig = appRepository.proxyConfig.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000),
-        com.echworkers.android.model.ProxyConfig()
+        com.ewp.android.model.ProxyConfig()
     )
     
     val installedApps = appRepository.installedApps.stateIn(

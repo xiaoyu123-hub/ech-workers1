@@ -1,4 +1,4 @@
-package com.echworkers.android.service
+package com.ewp.android.service
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -11,9 +11,9 @@ import android.os.Build
 import android.os.ParcelFileDescriptor
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import com.echworkers.android.model.EWPNode
-import com.echworkers.android.model.ProxyConfig
-import com.echworkers.android.model.ProxyMode
+import com.ewp.android.model.EWPNode
+import com.ewp.android.model.ProxyConfig
+import com.ewp.android.model.ProxyMode
 import ewpmobile.Ewpmobile
 import ewpmobile.SocketProtector
 import ewpmobile.VPNConfig
@@ -26,8 +26,8 @@ class EWPVpnService : VpnService(), SocketProtector {
     companion object {
         private const val TAG = "EWPVpnService"
         
-        const val ACTION_START = "com.echworkers.android.START_VPN"
-        const val ACTION_STOP = "com.echworkers.android.STOP_VPN"
+        const val ACTION_START = "com.ewp.android.START_VPN"
+        const val ACTION_STOP = "com.ewp.android.STOP_VPN"
         
         const val EXTRA_NODE_JSON = "node_json"
         const val EXTRA_PROXY_CONFIG_JSON = "proxy_config_json"
@@ -393,9 +393,9 @@ enum class VpnServiceState {
     DISCONNECTED, CONNECTING, CONNECTED, DISCONNECTING
 }
 
-const val VPN_STATE_ACTION = "com.echworkers.android.VPN_STATE"
-const val VPN_STATS_ACTION = "com.echworkers.android.VPN_STATS"
-const val VPN_ERROR_ACTION = "com.echworkers.android.VPN_ERROR"
+const val VPN_STATE_ACTION = "com.ewp.android.VPN_STATE"
+const val VPN_STATS_ACTION = "com.ewp.android.VPN_STATS"
+const val VPN_ERROR_ACTION = "com.ewp.android.VPN_ERROR"
 
 const val EXTRA_STATE = "state"
 const val EXTRA_STATS = "stats"

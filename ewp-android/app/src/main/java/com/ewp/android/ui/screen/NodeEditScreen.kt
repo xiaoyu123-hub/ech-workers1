@@ -1,4 +1,4 @@
-package com.echworkers.android.ui.screen
+package com.ewp.android.ui.screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -14,8 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import com.echworkers.android.model.EWPNode
-import com.echworkers.android.viewmodel.MainViewModel
+import com.ewp.android.model.EWPNode
+import com.ewp.android.viewmodel.MainViewModel
 import java.util.UUID
 
 @OptIn(ExperimentalMaterial3Api::class)

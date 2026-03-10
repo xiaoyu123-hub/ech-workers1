@@ -1,4 +1,4 @@
-package com.echworkers.android.model
+package com.ewp.android.model
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json

@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.echworkers.android"
+    namespace = "com.ewp.android"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.echworkers.android"
+        applicationId = "com.ewp.android"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
