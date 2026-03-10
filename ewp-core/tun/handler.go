@@ -23,6 +23,13 @@ type udpSession struct {
 	remoteAddr netip.AddrPort // the remote server addr (responses appear to come FROM here)
 	lastActive atomic.Int64  // UnixNano; updated on every packet, read by cleanup goroutine
 
+	// serverRealIP is the real IP of the first responder (typically the STUN/target server).
+	// Set once by udpReadLoop on first packet. Responses from this IP are masked back to
+	// the original FakeIP (remoteAddr) so the app sees the same src it sent to.
+	// Responses from ANY OTHER real IP are treated as Full Cone NAT P2P peers and get
+	// a fresh FakeIP allocated.
+	serverRealIP netip.Addr // written once by udpReadLoop goroutine, no mutex needed
+
 	// seenPeers tracks real IPs of P2P peers seen during this session.
 	// Used to eagerly release their FakeIP slots when the session closes.
 	seenPeersMu sync.Mutex
@@ -261,27 +268,38 @@ func (h *Handler) udpReadLoop(tunClientSrc netip.AddrPort, session *udpSession) 
 
 		// Determine the src address to inject into gVisor.
 		//
-		// Three cases:
+		// Cases:
 		//  1. Server returned no address → fall back to original session dst (FakeIP).
-		//  2. Server returned a FakeIP (already mapped) → use as-is (shouldn't normally happen).
-		//  3. Server returned a real IP (STUN server reply or Full Cone NAT P2P peer) →
-		//     allocate a stable FakeIP for that real IP so the app sees a consistent,
-		//     routable source address. HandleUDP will reverse-map replies back to the real IP.
+		//  2. Server returned a FakeIP → use as-is.
+		//  3. Server returned a real IP that is the KNOWN server (first responder) →
+		//     mask back to the original FakeIP so STUN/DNS libs see the same src they sent to.
+		//  4. Server returned a real IP from a NEW source (Full Cone NAT P2P peer) →
+		//     allocate a stable peer FakeIP so the app can see and reply to the peer.
 		actualRemote := remoteAddr
 		if !actualRemote.IsValid() {
 			actualRemote = session.remoteAddr
 		} else if h.fakeIPPool != nil && !h.fakeIPPool.IsFakeIP(actualRemote.Addr()) {
 			realIP := actualRemote.Addr().Unmap()
-			peerFakeIP := h.fakeIPPool.AllocatePeerFakeIP(realIP)
-			if peerFakeIP.IsValid() {
-				log.Printf("[TUN UDP] Peer FakeIP alloc: %s -> %s (session: %s)", realIP, peerFakeIP, tunClientSrc)
-				actualRemote = netip.AddrPortFrom(peerFakeIP, actualRemote.Port())
-				session.seenPeersMu.Lock()
-				if session.seenPeers == nil {
-					session.seenPeers = make(map[netip.Addr]struct{}, 4)
+			if !session.serverRealIP.IsValid() {
+				// First response: record this as the "server" real IP.
+				session.serverRealIP = realIP
+			}
+			if realIP == session.serverRealIP {
+				// Known server → mask to original FakeIP (preserves STUN src matching).
+				actualRemote = session.remoteAddr
+			} else {
+				// New source IP → Full Cone NAT P2P peer, allocate a fresh FakeIP.
+				peerFakeIP := h.fakeIPPool.AllocatePeerFakeIP(realIP)
+				if peerFakeIP.IsValid() {
+					log.Printf("[TUN UDP] Peer FakeIP alloc: %s -> %s (session: %s)", realIP, peerFakeIP, tunClientSrc)
+					actualRemote = netip.AddrPortFrom(peerFakeIP, actualRemote.Port())
+					session.seenPeersMu.Lock()
+					if session.seenPeers == nil {
+						session.seenPeers = make(map[netip.Addr]struct{}, 4)
+					}
+					session.seenPeers[realIP] = struct{}{}
+					session.seenPeersMu.Unlock()
 				}
-				session.seenPeers[realIP] = struct{}{}
-				session.seenPeersMu.Unlock()
 			}
 		}
 
