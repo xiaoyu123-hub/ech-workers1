@@ -39,7 +39,7 @@ jobs:
       - name: Build
         run: |
           cd cmd/client
-          GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} \
+          CGO_ENABLED=0 GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} \
             go build -ldflags="-s -w" \
             -o ../../ewp-core-client-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.suffix }} .
 
@@ -80,7 +80,7 @@ jobs:
       - name: Build
         run: |
           cd cmd/server
-          GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} \
+          CGO_ENABLED=0 GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} \
             go build -ldflags="-s -w" \
             -o ../../ewp-core-server-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.suffix }} .
 
